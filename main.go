@@ -5,6 +5,7 @@ import (
 	"bookstore_api/internal/books"
 	"bookstore_api/internal/categories"
 	"bookstore_api/internal/database"
+	"bookstore_api/internal/server"
 	"log"
 )
 
@@ -17,4 +18,6 @@ func main() {
 	}
 
 	log.Println("Tabelas criadas com sucesso!")
+
+	server.StartServer()
 }
