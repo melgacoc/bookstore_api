@@ -1,4 +1,97 @@
+basePath: /api/v1
+definitions:
+  authors.Author:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  books.Book:
+    properties:
+      author:
+        $ref: '#/definitions/authors.Author'
+      category:
+        $ref: '#/definitions/categories.Category'
+      id:
+        type: integer
+      synopsis:
+        type: string
+      title:
+        type: string
+    type: object
+  bookstore_api_internal_books_controller.CreateBookInput:
+    properties:
+      author:
+        properties:
+          name:
+            type: string
+        required:
+        - name
+        type: object
+      category:
+        properties:
+          name:
+            type: string
+        required:
+        - name
+        type: object
+      synopsis:
+        type: string
+      title:
+        type: string
+    required:
+    - author
+    - category
+    - synopsis
+    - title
+    type: object
+  categories.Category:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:8080
 info:
-  contact: {}
-paths: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Esta é uma API para gerenciar uma livraria.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Bookstore API
+  version: "1.0"
+paths:
+  /books:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo livro
+      parameters:
+      - description: Informações do livro
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/bookstore_api_internal_books_controller.CreateBookInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/books.Book'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Cria um novo livro
+      tags:
+      - books
 swagger: "2.0"

@@ -3,6 +3,8 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"bookstore_api/internal/books"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func SetupRoutes(router *gin.RouterGroup) {
@@ -11,13 +13,11 @@ func SetupRoutes(router *gin.RouterGroup) {
 	router.POST("/books", books.CreateBook)
 	router.PUT("/books/:id", books.UpdateBook)
 	router.DELETE("/books/:id", books.DeleteBook)
-	//router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 }
 
-func StartServer() {
-	router := gin.Default()
-	api := router.Group("/api")
+func StartServer(r *gin.Engine) {
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	api := r.Group("/api")
 	SetupRoutes(api)
-	router.Run(":8080")
+	r.Run(":8080")
 }

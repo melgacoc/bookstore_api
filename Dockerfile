@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/
 COPY --from=builder /app/main /app/main
 COPY .env .
 
-RUN ls -la /app
-RUN ls -la /app/main
-
 EXPOSE 8080
 
 CMD ["/app/main"]
