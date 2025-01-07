@@ -1,18 +1,23 @@
 package server
 
 import (
-	"bookstore_api/internal/books"
 	"github.com/gin-gonic/gin"
+	"bookstore_api/internal/books"
 )
+
+func SetupRoutes(router *gin.RouterGroup) {
+	router.GET("/books", books.GetAllBooks)
+	router.GET("/books/:id", books.GetBookByID)
+	router.POST("/books", books.CreateBook)
+	router.PUT("/books/:id", books.UpdateBook)
+	router.DELETE("/books/:id", books.DeleteBook)
+	//router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+}
 
 func StartServer() {
 	router := gin.Default()
-
-	router.GET("/api/books", books.GetAllBooks)
-	router.GET("/api/books/:id", books.GetBookByID)
-	router.POST("/api/books", books.CreateBook)
-	router.PUT("/api/books/:id", books.UpdateBook)
-	router.DELETE("/api/books/:id", books.DeleteBook)
-
+	api := router.Group("/api")
+	SetupRoutes(api)
 	router.Run(":8080")
 }
