@@ -13,9 +13,7 @@ services:
       - DB_PORT=5432
     depends_on:
       - postgres
-    volumes:
-      - .:/app
-    command: ./main
+    command: /app/main
 
   postgres:
     image: postgres:15
