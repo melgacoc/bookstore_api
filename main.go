@@ -13,7 +13,7 @@ import (
 
 // @title Bookstore API
 // @version 1.0
-// @description Esta é uma API para gerenciar uma livraria.
+// @description An CRUD to manage a bookstore.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support
